@@ -1,9 +1,9 @@
 # CAPSTONE-Udacity
-##Capstone Project for the Udacity NanoDegree
+## Capstone Project for the Udacity NanoDegree
 
 The main purpose of the project is to demostrate the skills and knowledge gained thoughtout the course Cloud Devops Nanodegree. The course covered all source of techniques for Cloud Devops Engineers to work with AWS resources to create a CICD process to deplou, configure and provision infrastructure. 
 
-#Scope of work:
+# Scope of work:
 You will develop a CI/CD pipeline for micro services applications with either blue/green deployment or rolling deployment. You will also develop your Continuous Integration steps as you see fit, but must at least include typographical checking (aka “linting”). To make your project stand out, you may also choose to implement other checks such as security scanning, performance testing, integration testing, etc.!
 
 Once you have completed your Continuous Integration you will set up Continuous Deployment, which will include:
@@ -11,27 +11,27 @@ Once you have completed your Continuous Integration you will set up Continuous D
 Pushing the built Docker container(s) to the Docker repository (you can use AWS ECR, create your own custom Registry within your cluster, or another 3rd party Docker repository) ; and
 Deploying these Docker container(s) to a small Kubernetes cluster. For your Kubernetes cluster you can either use AWS Kubernetes as a Service, or build your own Kubernetes cluster. To deploy your Kubernetes cluster, use either Ansible or Cloudformation. Preferably, run these from within Jenkins or Circle CI as an independent pipeline.
 
-#Specifications:
-##PROJECT SPECIFICATION
-###Capstone- Cloud DevOps
-  - Create Github repository with project code.
-  - Set Up Pipeline
-  - Use image repository to store Docker images (Docker Hub)
-  - Build Docker Container
-  - Execute linting step in code pipeline
-  - Code is checked against a linter as part of a Continuous Integration step (demonstrated w/ two screenshots)
-  - Build a Docker container in a pipeline
-  - The project takes a Dockerfile and creates a Docker container in the pipeline.
-  - Successful Deployment
-  - The Docker container is deployed to a Kubernetes cluster
-  - The cluster is deployed with CloudFormation or Ansible. This should be in the source code of the student’s submission.
-  - Use Blue/Green Deployment or a Rolling Deployment successfully 
-  - The project performs the correct steps to do a blue/green or a rolling deployment into the environment selected. 
-    Student demonstrates the successful completion of  chosen deployment methodology with screenshots.
+# Specifications:
+## PROJECT SPECIFICATION
+### Capstone- Cloud DevOps
+- [x] Create Github repository with project code.
+- [x] Set Up Pipeline
+- [x] Use image repository to store Docker images (Docker Hub)
+- [x] Build Docker Container
+- [x] Execute linting step in code pipeline
+- [x] Code is checked against a linter as part of a Continuous Integration step (demonstrated w/ two screenshots)
+- [x] Build a Docker container in a pipeline
+- [x] The project takes a Dockerfile and creates a Docker container in the pipeline.
+- [x] Successful Deployment
+- [x] The Docker container is deployed to a Kubernetes cluster
+- [x] The cluster is deployed with CloudFormation or Ansible. This should be in the source code of the student’s submission.
+- [x] Use Blue/Green Deployment or a Rolling Deployment successfully 
+- [x] The project performs the correct steps to do a blue/green or a rolling deployment into the environment selected. 
+- [x] Student demonstrates the successful completion of  chosen deployment methodology with screenshots.
 
 
 
-##Tools and Processes
+## Tools and Processes
 ### CI/CD Tools and Cloud Services
 
 * [Circle CI](https://www.circleci.com) - Cloud-based CI/CD service
@@ -57,8 +57,8 @@ Deploying these Docker container(s) to a small Kubernetes cluster. For your Kube
 | AWS_PEM_KEY | _redacted_** |
 
 
-#Step to Complete.
-##Steps in Completing Your Project
+# Steps to Complete.
+## Steps in Completing Your Project
 * Step 1: Propose and Scope the Project
   Plan what your pipeline will look like.
   Decide which options you will include in your Continuous Integration phase. Use either Circle CI or Jenkins.
@@ -85,7 +85,8 @@ Deploying these Docker container(s) to a small Kubernetes cluster. For your Kube
   Submitting your Project
   Make sure you have taken all the screenshots you need, as directed above, and create a text file with a link to your GitHub repo.
 
-#PROJECT URL
+# Getting Started
+# PROJECT URL
 
 
 
