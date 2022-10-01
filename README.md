@@ -1,20 +1,20 @@
 # CAPSTONE-Udacity
 ## Capstone Project for the Udacity NanoDegree
 
-The main purpose of the project is to demostrate the skills and knowledge gained thoughtout the course Cloud Devops Nanodegree. The course covered all source of techniques for Cloud Devops Engineers to work with AWS resources to create a CICD process to deplou, configure and provision infrastructure. 
+The main purpose of the project is to demonstrate the skills and knowledge gained throughout the course Cloud DevOps Nanodegree. The course covered all sources of techniques for Cloud DevOps Engineers to work with AWS resources to create a CICD process to deploy, configure, and provision infrastructure. 
 
 # Scope of work:
-You will develop a CI/CD pipeline for micro services applications with either blue/green deployment or rolling deployment. You will also develop your Continuous Integration steps as you see fit, but must at least include typographical checking (aka “linting”). To make your project stand out, you may also choose to implement other checks such as security scanning, performance testing, integration testing, etc.!
+You will develop a CI/CD pipeline for microservices applications with either blue/green deployment or rolling deployment. You will also develop your Continuous Integration steps as you see fit but must at least include typographical checking (aka “linting”). To make your project stand out, you may also choose to implement other checks such as security scanning, performance testing, integration testing, etc.
 
 Once you have completed your Continuous Integration you will set up Continuous Deployment, which will include:
 
-Pushing the built Docker container(s) to the Docker repository (you can use AWS ECR, create your own custom Registry within your cluster, or another 3rd party Docker repository) ; and
-Deploying these Docker container(s) to a small Kubernetes cluster. For your Kubernetes cluster you can either use AWS Kubernetes as a Service, or build your own Kubernetes cluster. To deploy your Kubernetes cluster, use either Ansible or Cloudformation. Preferably, run these from within Jenkins or Circle CI as an independent pipeline.
+Pushing the built Docker container(s) to the Docker repository (you can use AWS ECR, create your custom Registry within your cluster, or another 3rd party Docker repository); and
+Deploying these Docker containers (s) to a small Kubernetes cluster. For your Kubernetes cluster, you can either use AWS Kubernetes as a Service or build your Kubernetes cluster. To deploy your Kubernetes cluster, use either Ansible or Cloudformation. Preferably, run these from within Jenkins or Circle CI as an independent pipeline.
 
 # Specifications:
 ## PROJECT SPECIFICATION
 ### Capstone- Cloud DevOps
-- [x] Create Github repository with project code.
+- [x] Create a GitHub repository with project code.
 - [x] Set Up Pipeline
 - [x] Use image repository to store Docker images (Docker Hub)
 - [x] Build Docker Container
@@ -27,7 +27,7 @@ Deploying these Docker container(s) to a small Kubernetes cluster. For your Kube
 - [x] The cluster is deployed with CloudFormation or Ansible. This should be in the source code of the student’s submission.
 - [x] Use Blue/Green Deployment or a Rolling Deployment successfully 
 - [x] The project performs the correct steps to do a blue/green or a rolling deployment into the environment selected. 
-- [x] Student demonstrates the successful completion of  chosen deployment methodology with screenshots.
+- [x] Student demonstrates the successful completion of chosen deployment methodology with screenshots.
 
 
 
@@ -63,15 +63,15 @@ Deploying these Docker container(s) to a small Kubernetes cluster. For your Kube
   Plan what your pipeline will look like.
   Decide which options you will include in your Continuous Integration phase. Use either Circle CI or Jenkins.
   Pick a deployment type - either rolling deployment or blue/green deployment.
-  For the Docker application you can either use an application which you come up with, or use an open-source application pulled from the Internet, or if you have no     idea, you can use an Nginx “Hello World, my name is (student name)” application.
+  For the Docker application, you can either use an application that you come up with or use an open-source application pulled from the Internet or if you have no idea, you can use an Nginx “Hello World, my name is (student name)” application.
 * Step 2: Use Jenkins or Circle CI, and implement blue/green or rolling deployment.
   If you're using Jenkins, create your Jenkins master box and install the plugins you will need.
   If you're using Circle CI, set up your circle CI account and connect your git repository.
   Set up your environment to which you will deploy code.
-* Step 3: Pick AWS Kubernetes as a Service, or build your own Kubernetes cluster.
+* Step 3: Pick AWS Kubernetes as a Service, or build your Kubernetes cluster.
   Use Ansible or CloudFormation to build your “infrastructure”; i.e., the Kubernetes Cluster.
   It should create the EC2 instances (if you are building your own), set the correct networking settings, and deploy software to these instances.
-  As a final step, the Kubernetes cluster will need to be initialized. The Kubernetes cluster initialization can either be done by hand, or with Ansible/Cloudformation   at the student’s discretion.
+  As a final step, the Kubernetes cluster will need to be initialized. The Kubernetes cluster initialization can either be done by hand, or with Ansible/Cloudformation at the student’s discretion.
 * Step 4: Build your pipeline
   Construct your pipeline in your GitHub repository.
   Set up all the steps that your pipeline will include.
@@ -81,15 +81,9 @@ Deploying these Docker container(s) to a small Kubernetes cluster. For your Kube
 * Step 5: Test your pipeline
   Perform builds on your pipeline.
   Verify that your pipeline works as you designed it.
-  Take a screenshot of the Circle CI or Jenkins pipeline showing deployment, and a screenshot of your AWS EC2 page showing the newly created (for blue/green) or         modified (for rolling) instances. Make sure you name your instances differently between blue and green deployments.
+  Take a screenshot of the Circle CI or Jenkins pipeline showing deployment, and a screenshot of your AWS EC2 page showing the newly created (for blue/green) or modified (for rolling) instances. Make sure you name your instances differently between blue and green deployments.
   Submitting your Project
   Make sure you have taken all the screenshots you need, as directed above, and create a text file with a link to your GitHub repo.
 
 # Getting Started
-# PROJECT URL
-
-
-
-
-
-
+<[PROJECT URL](https://github.com/marcolcal/CAPSTONE-Udacity)
