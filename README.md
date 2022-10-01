@@ -1,95 +1,60 @@
-# CAPSTONE-Udacity
-## Capstone Project for the Udacity NanoDegree
-
-The main purpose of the project is to demostrate the skills and knowledge gained thoughtout the course Cloud Devops Nanodegree. The course covered all source of techniques for Cloud Devops Engineers to work with AWS resources to create a CICD process to deplou, configure and provision infrastructure. 
-
-# Scope of work:
-You will develop a CI/CD pipeline for micro services applications with either blue/green deployment or rolling deployment. You will also develop your Continuous Integration steps as you see fit, but must at least include typographical checking (aka “linting”). To make your project stand out, you may also choose to implement other checks such as security scanning, performance testing, integration testing, etc.!
-
-Once you have completed your Continuous Integration you will set up Continuous Deployment, which will include:
-
-Pushing the built Docker container(s) to the Docker repository (you can use AWS ECR, create your own custom Registry within your cluster, or another 3rd party Docker repository) ; and
-Deploying these Docker container(s) to a small Kubernetes cluster. For your Kubernetes cluster you can either use AWS Kubernetes as a Service, or build your own Kubernetes cluster. To deploy your Kubernetes cluster, use either Ansible or Cloudformation. Preferably, run these from within Jenkins or Circle CI as an independent pipeline.
-
-# Specifications:
-## PROJECT SPECIFICATION
-### Capstone- Cloud DevOps
-- [x] Create Github repository with project code.
-- [x] Set Up Pipeline
-- [x] Use image repository to store Docker images (Docker Hub)
-- [x] Build Docker Container
-- [x] Execute linting step in code pipeline
-- [x] Code is checked against a linter as part of a Continuous Integration step (demonstrated w/ two screenshots)
-- [x] Build a Docker container in a pipeline
-- [x] The project takes a Dockerfile and creates a Docker container in the pipeline.
-- [x] Successful Deployment
-- [x] The Docker container is deployed to a Kubernetes cluster
-- [x] The cluster is deployed with CloudFormation or Ansible. This should be in the source code of the student’s submission.
-- [x] Use Blue/Green Deployment or a Rolling Deployment successfully 
-- [x] The project performs the correct steps to do a blue/green or a rolling deployment into the environment selected. 
-- [x] Student demonstrates the successful completion of  chosen deployment methodology with screenshots.
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/marcolcal/project-ml-microservice-kubernetes/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/marcolcal/project-ml-microservice-kubernetes/tree/master)
 
 
+## Project Overview
 
-## Tools and Processes
-### CI/CD Tools and Cloud Services
+In this project, you will apply the skills you have acquired in this course to operationalize a Machine Learning Microservice API. 
 
-* [Circle CI](https://www.circleci.com) - Cloud-based CI/CD service
-* [Amazon AWS](https://aws.amazon.com/) - Cloud services
-* [AWS EKS](https://aws.amazon.com/eks/) - Amazon Elastic Kubernetes Services
-* [AWS eksctl](https://eksctl.io) - The official CLI for Amazon EKS
-* [AWS CLI](https://aws.amazon.com/cli/) - Command-line tool for AWS
-* [kubectl](https://kubernetes.io/docs/reference/kubectl/) - a command-line tool to control Kubernetes clusters
-* [Docker Hub](https://hub.docker.com/repository/docker/ovolmar/flask-blue) - Container images repository service
+You are given a pre-trained, `sklearn` model that has been trained to predict housing prices in Boston according to several features, such as average rooms in a home and data about highway access, teacher-to-pupil ratios, and so on. You can read more about the data, which was initially taken from Kaggle, on [the data source site](https://www.kaggle.com/c/boston-housing). This project tests your ability to operationalize a Python flask app—in a provided file, `app.py`—that serves out predictions (inference) about housing prices through API calls. This project could be extended to any pre-trained machine learning model, such as those for image recognition and data labeling.
 
-#### CicleCI Variables
-| VARIABLE | VALUE |
-| ------ | ------ |
-| AMI | _redacted_** |
-| ARN | arn:partition:service:region:account-id:resource-id |
-| AWS_ACCESS_KEY_ID | _redacted_** |
-| AWS_DEFAULT_REGION | _redacted_** |
-| AWS_SECRET_ACCESS_KEY | _redacted_** |
-| DOCKER_LOGIN | _redacted_** |
-| DOCKER_TOKEN| _redacted_** |
-| IMAGE_NAME | Docker image name |
-|REGISTRY_URL | Your docker registry |
-| AWS_PEM_KEY | _redacted_** |
+### Project Tasks
 
+Your project goal is to operationalize this working, machine learning microservice using [kubernetes](https://kubernetes.io/), which is an open-source system for automating the management of containerized applications. In this project you will:
+* Test your project code using linting
+* Complete a Dockerfile to containerize this application
+* Deploy your containerized application using Docker and make a prediction
+* Improve the log statements in the source code for this application
+* Configure Kubernetes and create a Kubernetes cluster
+* Deploy a container using Kubernetes and make a prediction
+* Upload a complete Github repo with CircleCI to indicate that your code has been tested
 
-# Steps to Complete.
-## Steps in Completing Your Project
-* Step 1: Propose and Scope the Project
-  Plan what your pipeline will look like.
-  Decide which options you will include in your Continuous Integration phase. Use either Circle CI or Jenkins.
-  Pick a deployment type - either rolling deployment or blue/green deployment.
-  For the Docker application you can either use an application which you come up with, or use an open-source application pulled from the Internet, or if you have no     idea, you can use an Nginx “Hello World, my name is (student name)” application.
-* Step 2: Use Jenkins or Circle CI, and implement blue/green or rolling deployment.
-  If you're using Jenkins, create your Jenkins master box and install the plugins you will need.
-  If you're using Circle CI, set up your circle CI account and connect your git repository.
-  Set up your environment to which you will deploy code.
-* Step 3: Pick AWS Kubernetes as a Service, or build your own Kubernetes cluster.
-  Use Ansible or CloudFormation to build your “infrastructure”; i.e., the Kubernetes Cluster.
-  It should create the EC2 instances (if you are building your own), set the correct networking settings, and deploy software to these instances.
-  As a final step, the Kubernetes cluster will need to be initialized. The Kubernetes cluster initialization can either be done by hand, or with Ansible/Cloudformation   at the student’s discretion.
-* Step 4: Build your pipeline
-  Construct your pipeline in your GitHub repository.
-  Set up all the steps that your pipeline will include.
-  Configure a deployment pipeline.
-  Include your Dockerfile/source code in the Git repository.
-  Include with your Linting step both a failed Linting screenshot and a successful Linting screenshot to show the Linter working properly.
-* Step 5: Test your pipeline
-  Perform builds on your pipeline.
-  Verify that your pipeline works as you designed it.
-  Take a screenshot of the Circle CI or Jenkins pipeline showing deployment, and a screenshot of your AWS EC2 page showing the newly created (for blue/green) or         modified (for rolling) instances. Make sure you name your instances differently between blue and green deployments.
-  Submitting your Project
-  Make sure you have taken all the screenshots you need, as directed above, and create a text file with a link to your GitHub repo.
+You can find a detailed [project rubric, here](https://review.udacity.com/#!/rubrics/2576/view).
 
-# Getting Started
-# PROJECT URL
+**The final implementation of the project will showcase your abilities to operationalize production microservices.**
+
+---
+
+## Setup the Environment
+
+* Create a virtualenv with Python 3.7 and activate it. Refer to this link for help on specifying the Python version in the virtualenv. 
+```bash
+python3 -m pip install --user virtualenv
+# You should have Python 3.7 available in your host. 
+# Check the Python path using `which python3`
+# Use a command similar to this one:
+python3 -m virtualenv --python=<path-to-Python3.7> .devops
+source .devops/bin/activate
+```
+* Run `make install` to install the necessary dependencies
+
+### Running `app.py`
+
+1. Standalone:  `python app.py`
+2. Run in Docker:  `./run_docker.sh`
+3. Run in Kubernetes:  `./run_kubernetes.sh`
+
+### Kubernetes Steps
+
+* Setup and Configure Docker locally
+* Setup and Configure Kubernetes locally
+* Create Flask app in Container
+* Run via kubectl
 
 
 
 
+# Example:
+[![CircleCI](https://circleci.com/gh/circleci/circleci-docs.svg?style=svg)](https://circleci.com/gh/circleci/circleci-docs)
 
-
+# Example for specific branch:
+[![CircleCI](https://circleci.com/gh/circleci/circleci-docs/tree/teesloane-patch-5.svg?style=svg)](https://circleci.com/gh/circleci/circleci-docs/?branch=teesloane-patch-5)

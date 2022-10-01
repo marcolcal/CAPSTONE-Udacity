@@ -1,0 +1,133 @@
+Using Config Files¶
+You can create a cluster using a config file instead of flags.
+
+First, create cluster.yaml file:
+
+
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: basic-cluster
+  region: eu-north-1
+
+nodeGroups:
+  - name: ng-1
+    instanceType: m5.large
+    desiredCapacity: 10
+    volumeSize: 80
+    ssh:
+      allow: true # will use ~/.ssh/id_rsa.pub as the default ssh key
+  - name: ng-2
+    instanceType: m5.xlarge
+    desiredCapacity: 2
+    volumeSize: 100
+    ssh:
+      publicKeyPath: ~/.ssh/ec2_id_rsa.pub
+
+######
+```
+eksctl create cluster -f cluster.yaml
+```
+######
+
+
+
+If you needed to use an existing VPC, you can use a config file like this:
+
+
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: cluster-in-existing-vpc
+  region: eu-north-1
+
+vpc:
+  subnets:
+    private:
+      eu-north-1a: { id: subnet-0ff156e0c4a6d300c }
+      eu-north-1b: { id: subnet-0549cdab573695c03 }
+      eu-north-1c: { id: subnet-0426fb4a607393184 }
+
+nodeGroups:
+  - name: ng-1-workers
+    labels: { role: workers }
+    instanceType: m5.xlarge
+    desiredCapacity: 10
+    privateNetworking: true
+  - name: ng-2-builders
+    labels: { role: builders }
+    instanceType: m5.2xlarge
+    desiredCapacity: 2
+    privateNetworking: true
+    iam:
+      withAddonPolicies:
+        imageBuilder: true
+
+
+####
+```
+eksctl delete cluster -f cluster.yaml
+```
+####
+
+# EXAMPLES
+https://github.com/weaveworks/eksctl/tree/main/examples
+
+
+DESCRIBE STACKS
+```
+eksctl utils describe-stacks --region=us-east-2 --cluster=eksctl-demo [--profile <profile-name>]
+```
+
+GET DETAILS
+```
+eksctl get cluster --name=eksctl-demo --region=us-east-2 [--profile <profile-name>]
+```
+
+You can also check the health of your clusters nodes using the command:
+```
+kubectl get nodes  [--profile <profile-name>]
+```
+
+##################################
+# Ensure Docker Desktop is running locally
+docker --version
+# Build an image using the Dockerfile in the current directory
+docker build -t python-helloworld .
+docker images
+# Run a container
+docker run -d -p 5000:5000 python-helloworld
+# Check the output at http://localhost:5000/ or http://0.0.0.0:5000/ or http://127.0.0.1:5000/
+docker ps
+# Now, stop the container.
+# Tag locally before pushing to the Dockerhub
+# We have used a sample Dockerhub profile /sudkul
+# Replace sudkul/ with your Dockerhub profile
+docker tag python-helloworld sudkul/python-helloworld:v1.0.0
+docker images
+# Log into the Dockerhub from your local terminal
+docker login
+# Replace sudkul/ with your Dockerhub profile
+docker push sudkul/python-helloworld:v1.0.0
+# Check the image in your Dockerhub online at https://hub.docker.com/repository/docker/sudkul/python-helloworld
+
+#########################################
+
+# Assuming the Kubernetes cluster is ready
+kubectl get nodes
+# Deploy an App from the Dockerhub to the Kubernetes Cluster
+kubectl create deploy python-helloworld --image=sudkul/python-helloworld:v1.0.0
+# See the status
+kubectl get deploy,rs,svc,pods
+# Port forward 
+kubectl port-forward pod/python-helloworld-84857d9565-2598m --address 0.0.0.0 5000:5000
+#############
+
+
+#############################
+#############################
+#############################
+#############################
+#############################
