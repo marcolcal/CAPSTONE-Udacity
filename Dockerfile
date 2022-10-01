@@ -1,24 +1,23 @@
+# start by pulling the python image
 FROM python:3.7.3-stretch
 
-## Step 1:
-# Create a working directory
+# copy the requirements file into the image
+COPY ./requirements.txt /app/requirements.txt
+
+# switch working directory
 WORKDIR /app
 
-## Step 2:
-# Copy source code to working directory
-COPY . /app/
+# install the dependencies and packages in the requirements file
+RUN pip3 install --upgrade pip &&\
+    pip3 install --no-cache-dir -r requirements.txt 
 
-## Step 3:
-# Install packages from requirements.txt
-# hadolint ignore=DL3013
-RUN pip install --no-cache-dir --upgrade pip &&\
-    pip install --no-cache-dir  --trusted-host pypi.python.org -r requirements.txt
-## Step 4:
-# Expose port 80
-EXPOSE 80
-## Step 5:
-# Run app.py at container launch
-CMD ["python", "app.py"]
+# copy every content from the local file to the image
+COPY . /app
+
+# configure the container to run in an executed manner
+ENTRYPOINT [ "python" ]
+
+CMD ["app.py" ]
 
 
 
