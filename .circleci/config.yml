@@ -58,9 +58,9 @@ jobs:
       - run: 
           name: "setting up env"
           command: |
-            #make setup
-            python3 -m venv venv
-            . venv/bin/activate
+            make setup
+            #python3 -m venv venv
+            #. venv/bin/activate
             make install
       - run: 
           name: "installing hado for linting"
