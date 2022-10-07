@@ -73,9 +73,9 @@ jobs:
           
   build:
     docker:
-    - image: cimg/go:1.16
+    - image: cimg/node:lts
       auth:
-        username: $DOCKER_USERNAME
+        username: marcolcal
         password: $DOCKER_PASSWORD
     steps:
       - checkout
