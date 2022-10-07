@@ -67,7 +67,7 @@ jobs:
             chmod +x /bin/hadolint
             make lint
       - save_cache:
-        paths:
+      - paths:
           - ./venv
           
   build:
@@ -92,7 +92,7 @@ jobs:
             chmod +x /bin/hadolint
             make lint
       - save_cache:
-        paths:
+      - paths:
           - ./venv
   
           
