@@ -69,7 +69,7 @@ jobs:
             chmod +x /bin/hadolint
             #pip install hadolintw
             #alias hadolint=hadolintw
-            hadolint Dockerfile 
+            #hadolint Dockerfile 
             #make lint
       #- save_cache:
       #- paths:
