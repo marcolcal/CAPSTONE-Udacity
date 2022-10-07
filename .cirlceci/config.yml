@@ -1,0 +1,98 @@
+version: 2.1
+commands:
+  destroy-cluster:
+    description: destroy cluster if needed
+    parameters:
+      workflowid:
+        type: string
+        default: ${CIRCLE_WORKFLOW_ID:0:7}
+    steps:
+      - run:
+          name: install kubectl 
+          when: on_fail
+          command: |
+            curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+            sudo mv /tmp/eksctl /usr/local/bin
+            echo "Destroying environment: <<parameters.workflowid>> "
+    steps:
+      - run:
+          name: destroy cluster
+          when: on_fail
+          command: |
+            echo "Destroying environment: <<parameters.workflowid>> "
+            eksctl delete -f cluster clusters/cluster.yml --region=us-east-1
+  
+  describe-cluster:
+    description: describe cluster 
+    parameters:
+      workflowid:
+        type: string
+        default: ${CIRCLE_WORKFLOW_ID:0:7}
+    steps:
+      - run:
+          name: describing the cluster
+          command: |
+            echo "getting cluster info"
+            eksctl utils describe-stacks -f cluster clusters/cluster.yml --region=us-east-1
+
+  cluster-status:
+    description: get cluster status
+    parameters:
+      workflowid:
+        type: string
+        default: ${CIRCLE_WORKFLOW_ID:0:7}
+    steps:
+      - run:
+          name: describing the cluster
+          command: |
+            echo "getting cluster info"
+            eksctl get cluster -f cluster clusters/cluster.yml --region=us-east-1
+
+jobs:
+  lint:
+    docker:
+    - image: python:3.7.3-stretch
+    steps:
+      - checkout
+      - restore_cache:
+          keys: deployed-1
+      - run: 
+          name: "setting up emv"
+          command: |
+            make setup
+            make install
+      - run: 
+          name: "installing hado for linting"
+          command: |
+            wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
+            chmod +x /bin/hadolint
+            make lint
+      - save_cache:
+        paths:
+          - ./ven
+          
+  build:
+    docker:
+    - image: cimg/go:1.16
+      auth:
+        username: $DOCKER_USERNAME
+        password: $DOCKER_PASSWORD
+    steps:
+      - checkout
+      - restore_cache:
+          keys: deployed-1
+      - run: 
+          name: "setting up emv"
+          command: |
+            make setup
+            make install
+      - run: 
+          name: "installing hado for linting"
+          command: |
+            wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
+            chmod +x /bin/hadolint
+            make lint
+      - save_cache:
+        paths:
+          - ./venv
+          
