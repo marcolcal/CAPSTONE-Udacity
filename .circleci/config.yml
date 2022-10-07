@@ -50,7 +50,7 @@ commands:
 jobs:
   lint:
     docker:
-      - image: python:3.7.3-stretch
+      - image: cimg/python:3.10.7
     steps:
       - checkout
       - restore_cache:
