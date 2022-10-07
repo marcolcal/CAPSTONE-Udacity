@@ -69,8 +69,8 @@ jobs:
             chmod +x /bin/hadolint
             which hadolint
             hadolint --help
-            #/bin/hadolint --ignore DL3003 --ignore DL3006 Dockerfile 
-            #make lint
+            #hadolint --ignore DL3003 --ignore DL3006 Dockerfile 
+            make lint
       #- save_cache:
       #- paths:
       #    - venv
