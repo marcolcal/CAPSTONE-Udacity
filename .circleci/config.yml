@@ -83,8 +83,8 @@ jobs:
       - run: 
           name: "setting up env"
           command: |
-            sudo apt install -y make
-            sudo apt install -y python3.8-venv 
+            apt install -y make
+            apt install -y python3.8-venv 
             make setup
             make install
       - run: 
