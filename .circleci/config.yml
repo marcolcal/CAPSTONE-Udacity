@@ -60,7 +60,7 @@ jobs:
           command: |
             #make setup
             python3 -m venv .devops
-            source ~/.devops/bin/activate
+            . ~/.devops/bin/activate
             make install
       - run: 
           name: "installing hado for linting"
