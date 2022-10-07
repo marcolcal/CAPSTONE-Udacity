@@ -109,8 +109,8 @@ workflows:
   default:
     jobs:
       - lint
-      - build
-          requires: [lint]
+      #- build
+
  
       #- deploycluster:
       #    requires: [buildcontainer]
