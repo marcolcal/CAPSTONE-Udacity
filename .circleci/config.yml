@@ -68,7 +68,7 @@ jobs:
             make lint
       - save_cache:
       - paths:
-          - ./venv
+          - venv
           
   build:
     docker:
@@ -93,7 +93,7 @@ jobs:
             make lint
       - save_cache:
       - paths:
-          - ./venv
+          - venv
   
           
 
