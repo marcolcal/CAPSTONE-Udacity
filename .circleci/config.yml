@@ -104,4 +104,14 @@ jobs:
   
           
 
-#########LETS-SEE
+#########LETS-
+workflows: 
+  default:
+    jobs:
+      - lint
+      - build
+ 
+      #- deploycluster:
+      #    requires: [buildcontainer]
+      #- pod-launcher:
+      #    requires: [deploycluster]
