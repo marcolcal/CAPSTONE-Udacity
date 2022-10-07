@@ -50,7 +50,7 @@ commands:
 jobs:
   lint:
     docker:
-      - image: cimg/python:3.10.7
+      - image: python:3.7.3-stretch
     steps:
       - checkout
       - restore_cache:
@@ -59,8 +59,8 @@ jobs:
           name: "setting up env"
           command: |
             #make setup
-            python3 -m venv devops
-            . devops/bin/activate
+            python3 -m venv venv
+            . venv/bin/activate
             make install
       - run: 
           name: "installing hado for linting"
@@ -69,7 +69,6 @@ jobs:
             chmod +x /bin/hadolint
             which hadolint
             hadolint --help
-            #hadolint --ignore DL3003 --ignore DL3006 Dockerfile 
             make lint
       #- save_cache:
       #- paths:
