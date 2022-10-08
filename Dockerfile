@@ -8,8 +8,8 @@ COPY ./requirements.txt /app/requirements.txt
 WORKDIR /app
 
 # install the dependencies and packages in the requirements file
-RUN pip3 install --upgrade pip3 &&\
-    pip3 install --no-cache-dir -r requirements.txt 
+RUN pip install --upgrade pip &&\
+    pip install --no-cache-dir -r requirements.txt 
 
 # copy every content from the local file to the image
 COPY . /app
