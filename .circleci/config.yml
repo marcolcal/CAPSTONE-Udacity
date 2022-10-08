@@ -93,7 +93,7 @@ jobs:
           command: |
             echo "We will be back"
             #hadolint Dockerfile || true
-            pylint --disable=R,C,W1203,W1202 app.py    
+            #pylint --disable=R,C,W1203,W1202 app.py    
   build:
     docker:
     - image: cimg/go:1.17
