@@ -91,12 +91,6 @@ jobs:
             #apt install -y python3.8-venv 
             make setup
             make install
-      - run: 
-          name: "installing hado for linting"
-          command: |
-            wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
-            chmod +x /bin/hadolint
-            make lint
       #- save_cache:
       #- paths:
           #- venv
@@ -107,8 +101,9 @@ jobs:
 workflows: 
   default:
     jobs:
+      - build
       - lint
-      #- build
+      
 
  
       #- deploycluster:
