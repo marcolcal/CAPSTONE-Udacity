@@ -165,8 +165,13 @@ jobs:
             kubectl version --client
             #Or use this for detailed view of version:
             kubectl version --client --output=yaml    
-                  
-
+      - run: 
+          name: "Installing Kubectl"
+          command: | 
+            eksctl get cluster -f clusters/cluster.yml --region=us-east-1 --profile default
+            if [ $? != 0 ]; then
+              eksctl create cluster -f clusters/cluster.yml --region=us-east-1 --profile default;                  
+            fi
 #########LETS-
 workflows: 
   default:
