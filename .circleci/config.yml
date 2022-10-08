@@ -80,7 +80,7 @@ jobs:
             #make lint    
   build:
     docker:
-    - image: python:3.7.3-stretch
+    - image: cimg/go:1.17
       auth:
         username: marcolcal
         password: $DOCKER_PASSWORD
@@ -93,12 +93,12 @@ jobs:
           version: 20.10.14
           docker_layer_caching: true
       - run: 
-          name: "setting up env"
+          name: "building the docker image"
           command: |
             touch ".env"
             echo DOCKER_LOGIN=marcolcal >> ".env"
             echo DOCKER_PASSWORD=${DOCKER_PASSWORD}  >> ".env"
-            echo IMAGE_NAME=my-blue-image
+            echo IMAGE_NAME=my-blue-image >> ".env"
             docker tag $IMAGE_NAME marcolcal/${IMAGE_NAME}:v1
             docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
             docker push marcolcal/${IMAGE_NAME}
