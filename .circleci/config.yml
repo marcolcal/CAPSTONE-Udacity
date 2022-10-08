@@ -65,6 +65,7 @@ jobs:
           paths:
             - .
   lint:
+    docker:
     - image: macOS-latest
     steps:
       - checkout 
