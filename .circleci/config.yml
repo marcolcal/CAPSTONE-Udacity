@@ -169,10 +169,10 @@ jobs:
           name: "Installing Kubectl"
           command: | 
             aws sts get-caller-identity
-            eksctl delete cluster -f cluster.yaml
-            #/usr/local/bin/aws  eksctl get cluster --name=cluster-in-existing-vpc --region=us-east-1 --profile default
+            eksctl create cluster -f ./.circleci/clusters/cluster.yml --region=us-east-1 --profile udacity
+            #/usr/local/bin/aws  eksctl get cluster --name=cluster-in-existing-vpc --region=us-east-1 --profile udacity
             #if [ $? != 0 ]; then
-            #  eksctl create cluster -f clusters/cluster.yml --region=us-east-1 --profile default;      
+            #  eksctl create cluster -f ./.circleci/clusters/cluster.yml --region=us-east-1 --profile default;      
             #  else
             #    exit 0;            
             #fi
