@@ -101,7 +101,7 @@ jobs:
             docker stop app-container
             ./upload_docker.sh
       - save_cache:
-          keys:
+          key:
             - v1-{{ .Branch }}
           paths:
             - ./venv
