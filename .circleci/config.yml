@@ -52,7 +52,7 @@ commands:
 
 jobs:
 build_and_test: # this can be any name you choose
-  executor: python/default # use the default executor defined within the orb
+  executor: python # use the default executor defined within the orb
   steps:
     - checkout # checkout source code
     - python/install-packages:
