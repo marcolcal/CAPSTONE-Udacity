@@ -51,6 +51,9 @@ jobs:
   lint:
     docker:
       - image: hadolint/hadolint:latest
+        auth:
+          username: marcolcal
+          password: $DOCKER_PASSWORD
     steps:
       - checkout
       - restore_cache:
