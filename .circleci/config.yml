@@ -97,9 +97,9 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            ./run_docker.sh
+            bash run_docker.sh
             docker stop app-container
-            ./upload_docker.sh
+            bash upload_docker.sh
       - save_cache:
           key: v1-{{ .Branch }}
           paths:
