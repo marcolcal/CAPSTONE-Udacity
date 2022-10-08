@@ -100,10 +100,11 @@ jobs:
             #echo DOCKER_PASSWORD=$DOCKER_PASSWORD >> ".env"
             echo IMAGE_NAME=my-blue-image >> ".env"
             source ".env"
+            echo $DOCKER_PASSWORD
             docker build -t ${IMAGE_NAME} .
             docker image tag $IMAGE_NAME marcolcal/${IMAGE_NAME}:v1
-            docker login -u ${DOCKER_USERNAME} -p Springtime$2022!!
-            docker push marcolcal/${IMAGE_NAME}
+            #docker login -u ${DOCKER_USERNAME} -p Springtime$2022!!
+            #docker push marcolcal/${IMAGE_NAME}
       - save_cache:
           key: v1-{{ .Branch }}
           paths:
