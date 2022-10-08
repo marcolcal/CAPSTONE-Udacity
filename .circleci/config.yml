@@ -168,7 +168,7 @@ jobs:
       - run: 
           name: "Installing Kubectl"
           command: | 
-            eksctl get cluster --name=cluster-in-existing-vpc --region=us-east-1 --profile default
+            /usr/local/bin/aws  eksctl get cluster --name=cluster-in-existing-vpc --region=us-east-1 --profile default
             if [ $? != 0 ]; then
               eksctl create cluster -f clusters/cluster.yml --region=us-east-1 --profile default;      
               else
