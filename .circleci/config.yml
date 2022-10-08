@@ -86,7 +86,7 @@ jobs:
       - run:
           name: Get the hadolint version
           command: |
-            docker run --rm hadolint/hadolint hadolint --version
+            hadolint --version
       - run:
           name: Run lint
           command: |
