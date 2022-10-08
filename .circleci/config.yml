@@ -95,11 +95,13 @@ jobs:
       - run: 
           name: "setting up env"
           command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            bash run_docker.sh
-            docker stop app-container
-            bash upload_docker.sh
+            touch ".env"
+            echo DOCKER_LOGIN=marcolcal >> ".env"
+            echo DOCKER_PASSWORD=${DOCKER_PASSWORD}  >> ".env"
+            echo IMAGE_NAME=my-blue-image
+            docker tag $IMAGE_NAME marcolcal/${IMAGE_NAME}:v1
+            docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
+            docker push marcolcal/${IMAGE_NAME}
       - save_cache:
           key: v1-{{ .Branch }}
           paths:
