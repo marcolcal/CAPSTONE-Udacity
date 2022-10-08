@@ -3,19 +3,6 @@ orbs:
   python: circleci/python@2.0.3
   heroku: circleci/heroku@1.2.6
 commands:
-  build_and_test: # this can be any name you choose
-    executor: python/default # use the default executor defined within the orb
-    steps:
-      - checkout # checkout source code
-      - python/install-packages:
-          pkg-manager: pip
-      - run:
-          name: Run tests
-          command: python -m pytest
-      - persist_to_workspace:
-          root: ~/project
-          paths:
-            - .
   destroy-cluster:
     description: destroy cluster if needed
     parameters:
@@ -64,6 +51,19 @@ commands:
             eksctl get cluster -f cluster clusters/cluster.yml --region=us-east-1
 
 jobs:
+build_and_test: # this can be any name you choose
+  executor: python/default # use the default executor defined within the orb
+  steps:
+    - checkout # checkout source code
+    - python/install-packages:
+        pkg-manager: pip
+    - run:
+        name: Run tests
+        command: python -m pytest
+    - persist_to_workspace:
+        root: ~/project
+        paths:
+          - .
 lint:
   docker:
     - image: python:3.7.3-stretch
