@@ -71,16 +71,27 @@ jobs:
             - ./capstone  # TODO: Include in cache the "bin" directory
           key: v1-{{ .Branch }}-{{ epoch }}
       - run:
-          name: Run lint
+          name: Test linting
           command: |
+            python3 -m venv .capstone
+            . ./capstone/bin/activate
+            make install
             # Install hadolint
             pip --version
             wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64
             chmod +x /bin/hadolint
+
+      - run:
+          name: Get the hadolint version
+          command: |
+            docker run --rm hadolint/hadolint hadolint --version
+      - run:
+          name: Run lint
+          command: |
             hadolint Dockerfile
             pylint --disable=R,C,W1203,W1202 app.py    
   build:
-    docker:
+    docker_job:
     - image: cimg/go:1.17
       auth:
         username: marcolcal
