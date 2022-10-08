@@ -113,14 +113,14 @@ jobs:
           command: |
             touch ".env"
             echo DOCKER_USERNAME="marcolcal" >> ".env"
-            echo DOCKER_PASSWORD=$DOCKER_PASSWORD >> ".env"
+            #echo DOCKER_PASSWORD=$DOCKER_PASSWORD >> ".env"
             echo PROJECT_NAME="udacity-capstone2022"  >> ".env"
             echo IMAGE_NAME="my-blue-image" >> ".env"
             source ".env"
-            docker build -t ${IMAGE_NAME} .
-            docker image tag $IMAGE_NAME marcolcal/${IMAGE_NAME}:v1
-            echo $DOCKER_PASSWORD | docker login -u ${DOCKER_USERNAME} -p --password-stdin
-            docker push marcolcal/${PROJECT_NAME}:${IMAGE_NAME}
+            docker build -t $IMAGE_NAME .
+            docker image tag $IMAGE_NAME $DOCKER_USERNAME/$IMAGE_NAME:v1
+            docker login -u $DOCKER_USERNAME -p ${DOCKER_PASSWORD}
+            docker push $DOCKER_USERNAME/$PROJECT_NAME:$IMAGE_NAME
       - save_cache:
           key: v1-{{ .Branch }}
           paths:
