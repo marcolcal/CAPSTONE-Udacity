@@ -74,7 +74,7 @@ jobs:
           name: Test linting
           command: |
             python3 -m venv .capstone
-            . ./capstone/bin/activate
+            . .capstone/bin/activate
             make install
             # Install hadolint
             pip --version
@@ -126,9 +126,9 @@ jobs:
 workflows: 
   default:
     jobs:
-      - build
       - lint
-      
+      - build
+          requires: [lint]     
 
  
       #- deploycluster:
