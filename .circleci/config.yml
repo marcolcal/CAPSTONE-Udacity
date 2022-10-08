@@ -91,7 +91,8 @@ jobs:
           name: Run lint
           shell: /bin/bash
           command: |
-            hadolint Dockerfile || true
+            echo "We will be back"
+            #hadolint Dockerfile || true
             pylint --disable=R,C,W1203,W1202 app.py    
   build:
     docker:
