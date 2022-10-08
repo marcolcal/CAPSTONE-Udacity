@@ -65,30 +65,26 @@ jobs:
           paths:
             - .
   lint:
-    docker:
-      - image: python:3.7.3-stretch
+    name: Hadolint Dockerfile
+    runs-on: macOS-latest
+    timeout-minutes: 30
     steps:
-      - checkout 
-      - restore_cache:
-          keys:
-            - v1-pkgs-{{ checksum "requirements.txt" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-      - run:
-          name: "linting"
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            make install
-            # Install hadolint
-            wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
-            chmod +x /bin/hadolint
-            which pip
-            make lint
-      - save_cache:
-          paths:
-            - ./venv
-          key: v1-pkgs-{{ checksum "requirements.txt" }}
+      - name: Checkout git repo
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 1
+      - name: Run hadolint
+        run: |
+          brew install hadolint
+          hadolint ./Dockerfile | tee -a hadolint_lint.txt
+          lintErrors=$(stat -f%z hadolint_lint.txt)
+          if [ "$lintErrors" -gt "0" ]; then
+              echo "Errors have been found, please see below"
+              cat hadolint_lint.txt
+              exit 1
+          else
+              echo "There are no erros found on Dockerfile!!"
+          fi
             
   build:
     docker:
