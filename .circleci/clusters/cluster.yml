@@ -5,15 +5,15 @@ metadata:
   name: cluster-in-existing-vpc
   region: us-east-1
 
-vpc:
-  subnets:
-    private:
-      us-east-1: { id: subnet-0ca530a100c6e74b9 }
-      us-east-1: { id: subnet-035a8bb74f8cb2a53 }
-      us-east-1: { id: subnet-0230975f45c59a43a }
-      us-east-1: { id: subnet-065028ba808086079 }
-      us-east-1: { id: subnet-04a49f87b4ccb69d0 }
-      us-east-1: { id: subnet-07952d0e019be87c3 }
+#vpc:
+#  subnets:
+#    private:
+#      us-east-1: { id: subnet-0ca530a100c6e74b9 }
+#      us-east-1: { id: subnet-035a8bb74f8cb2a53 }
+#      us-east-1: { id: subnet-0230975f45c59a43a }
+#      us-east-1: { id: subnet-065028ba808086079 }
+#      us-east-1: { id: subnet-04a49f87b4ccb69d0 }
+#      us-east-1: { id: subnet-07952d0e019be87c3 }
 
 nodeGroups:
   - name: ng-1-workers
