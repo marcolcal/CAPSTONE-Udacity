@@ -102,7 +102,7 @@ jobs:
             source ".env"
             docker build -t ${IMAGE_NAME} .
             docker image tag $IMAGE_NAME marcolcal/${IMAGE_NAME}:v1
-            echo $DOCKER_PASSWORD | docker login -u ${DOCKER_USERNAME} -p --password-stdin
+            echo $DOCKER_PASSWORD | docker login -u ${DOCKER_USERNAME} -p --password-stdin https://hub.docker.com/
             docker push marcolcal/${IMAGE_NAME}
       - save_cache:
           key: v1-{{ .Branch }}
