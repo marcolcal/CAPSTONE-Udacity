@@ -65,14 +65,9 @@ jobs:
           paths:
             - .
   lint:
-    name: Hadolint Dockerfile
-    runs-on: macOS-latest
-    timeout-minutes: 30
+    - image: macOS-latest
     steps:
-      - name: Checkout git repo
-        uses: actions/checkout@master
-        with:
-          fetch-depth: 1
+      - checkout 
       - name: Run hadolint
         run: |
           brew install hadolint
