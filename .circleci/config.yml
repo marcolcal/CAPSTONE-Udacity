@@ -66,22 +66,27 @@ jobs:
             - .
   lint:
     docker:
-    - image: macOS-latest
+    - image: circleci/docker@1.5.0
     steps:
       - checkout
-      - run: 
-          name: Run hadolint
-          command: 
-            brew install hadolint
-            hadolint ./Dockerfile | tee -a hadolint_lint.txt
-            lintErrors=$(stat -f%z hadolint_lint.txt)
-            if [ "$lintErrors" -gt "0" ]; then
-                echo "Errors have been found, please see below"
-                cat hadolint_lint.txt
-                exit 1
-            else
-                echo "There are no erros found on Dockerfile!!"
-            fi
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "requirements.txt" }}
+      - run:
+          name: Install dependencies
+          command: |
+            python3 -m venv .devops-capstone
+            source .devops-capstone/bin/activate
+            make install
+      - save_cache:
+          paths:
+            - ./.devops-capstone  # TODO: Include in cache the "bin" directory
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
+      - run:
+          name: Run lint
+          command: |
+            source .devops-capstone/bin/activate
+            make lint 
             
   build:
     docker:
