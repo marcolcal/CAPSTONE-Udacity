@@ -129,9 +129,12 @@ jobs:
   deployekscluster:
     docker:
       - image: cimg/aws:2022.09
-    working_directory: ./tmp  
+    working_directory: ~/tmp  
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-{{ .Branch }}
       - run: 
           name: "updating awscli to latest"
           command: |
