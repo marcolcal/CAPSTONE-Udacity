@@ -50,7 +50,7 @@ commands:
 jobs:
   lint:
     docker:
-      - image: python:3.7.3-stretch
+      - image: hadolint/hadolint:latest
     steps:
       - checkout
       - restore_cache:
@@ -64,11 +64,11 @@ jobs:
       - run: 
           name: "installing hado for linting"
           command: |
-            wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
-            chmod +x /bin/hadolint
+            #wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
+            #chmod +x /bin/hadolint
             which hadolint
             hadolint --help
-            make lint
+            hadolint Dockerfile
       #- save_cache:
       #- paths:
       #    - venv
