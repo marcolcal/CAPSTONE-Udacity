@@ -67,9 +67,8 @@ jobs:
   lint:
     docker:
     - image: python:3.7.3-stretch
-    steps:
       - checkout
-      - setup_remote_docker
+      #- setup_remote_docker
       - restore_cache:
           keys:
             - v1-{{ .Branch }}
@@ -89,6 +88,7 @@ jobs:
             # Install hadolint
             wget -O /usr/local/bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
             chmod +x /usr/local/bin/hadolint
+            cp /usr/local/bin/hadolint /bin
             make lint
 
           
