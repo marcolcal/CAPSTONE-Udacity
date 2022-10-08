@@ -77,7 +77,7 @@ jobs:
             pip --version
             wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64
             chmod +x /bin/hadolint
-            make lint    
+            #make lint    
   build:
     docker:
     - image: python:3.7.3-stretch
@@ -87,13 +87,19 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: deployed-1
+          keys:
+            - v1-{{ .Branch }}
+      - setup_remote_docker:
+          version: 20.10.14
+          docker_layer_caching: true
       - run: 
           name: "setting up env"
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            make install
+            sh run_docker.sh
+            docker stop app-container
+            sh upload_docker.sh
       #- save_cache:
       #- paths:
           #- venv
