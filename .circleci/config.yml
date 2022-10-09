@@ -166,7 +166,7 @@ jobs:
             #Or use this for detailed view of version:
             kubectl version --client --output=yaml    
       - run: 
-          name: "Installing Kubectl"
+          name: "Creating cluster"
           command: | 
             aws sts get-caller-identity
             eksctl create cluster -f ./.circleci/clusters/cluster.yml --profile udacity
