@@ -169,7 +169,7 @@ jobs:
           name: "Creating cluster"
           command: | 
             aws sts get-caller-identity
-            eksctl create cluster -f ./.circleci/clusters/cluster.yml --profile default
+            eksctl create cluster -f ./.circleci/clusters/cluster.yml
             #/usr/local/bin/aws  eksctl get cluster --name=cluster-in-existing-vpc --region=us-east-1 --profile udacity
             #if [ $? != 0 ]; then
             #  eksctl create cluster -f ./.circleci/clusters/cluster.yml --region=us-east-1 --profile default;      
