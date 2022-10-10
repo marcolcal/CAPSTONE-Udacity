@@ -277,6 +277,47 @@ jobs:
             kubectl apply -f .circleci/clusters/green-pod.yml
             kubectl apply -f .circleci/clusters/services.yml
             kubectl apply -f .circleci/clusters/traffic.yml
+  get-pod:
+    docker:
+      - image: cimg/aws:2022.09
+    working_directory: ~/tmp  
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-{{ .Branch }}
+      - run: 
+          name: "getting kubectl"
+          command: |
+            ###INstall kubectl
+            curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+            ##To validate binay
+            curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+            echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+            ##Install it
+            sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+            chmod +x kubectl
+            mkdir -p ~/.local/bin
+            mv ./kubectl ~/.local/bin/kubectl
+            # and then append (or prepend) ~/.local/bin to $PATH
+            kubectl version --client
+            #Or use this for detailed view of version:
+            kubectl version --client --output=yaml
+      - describe-cluster
+      - cluster-status
+      - run: 
+          name: "Installing eksctl"
+          command: |
+            curl --silent --location https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_Linux_amd64.tar.gz | tar -xz -C /tmp
+            sudo mv /tmp/eksctl /usr/local/bin
+      - run:
+          name: "Setup custom environment variables"
+          command: echo 'export MY_PROJECT_NAME="UdacityCapstone"' >> "$BASH_ENV"
+      - run: 
+          name: "Installing eksctl"
+          command: |   
+            kubectl get svc | grep service-cluster-ip | awk '{print $1}'  
+  
 ######
 #########LETS-
 workflows: 
@@ -289,9 +330,10 @@ workflows:
       #    requires: [lint]   
       #- smoke-testing-cluster
       #    requires: [deployekscluster]   
-      - deploy-app
+      #- deploy-app
       #    requires: [smoke-testing-cluster]
-
+      - get-pod
+      #    requires: [deploy-app]
       #- deploycluster:
       #    requires: [buildcontainer]
       #- pod-launcher:
