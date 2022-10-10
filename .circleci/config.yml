@@ -318,7 +318,7 @@ jobs:
           command: |   
             kubectl get svc | grep service-cluster-ip | awk '{print $1}'  
   
-######
+########
 #########LETS-
 workflows: 
   default:
