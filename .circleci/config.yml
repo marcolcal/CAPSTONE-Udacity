@@ -329,11 +329,16 @@ jobs:
           name: testing configuration
           command: |
             kubectl get svc
-      - run: 
-          name: "Installing eksctl"
-          command: |   
-            kubectl get svc | grep service-cluster-ip | awk '{print $1}'  
-  
+            kubectl get pods
+      - run:
+          name: testing configuration
+          command: |
+            kubectl get pods -o wide
+      - run:
+          name: testing configuration
+          command: |
+            kubectl get pods --all-namespaces -o wide
+            
 ########
 #########LETS-
 workflows: 
