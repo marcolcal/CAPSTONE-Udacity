@@ -22,7 +22,7 @@ commands:
           when: on_fail
           command: |
             echo "Destroying environment: <<parameters.workflowid>> "
-            eksctl delete -f cluster clusters/cluster.yml --region=us-east-1
+            
   
   describe-cluster:
     description: describe cluster 
