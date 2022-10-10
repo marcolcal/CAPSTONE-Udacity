@@ -217,6 +217,14 @@ jobs:
           keys:
             - v1-{{ .Branch }}
       - run: 
+          name: "updating awscli to latest"
+          command: |
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            #sudo ./aws/install
+            sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
+            which aws
+      - run: 
           name: "Installing eksctl"
           command: |
             curl --silent --location https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_Linux_amd64.tar.gz | tar -xz -C /tmp
@@ -244,7 +252,7 @@ jobs:
       - run:
           name: deploy App/container
           command: |
-            kubectl get nodes --profile default
+            kubectl get nodes --profile udacity
             usr/local/bin/aws eks update-kubeconfig --name $MY_PROJECT_NAME --region ${AWS_DEFAULT_REGION}
             #kubectl create deploy $MY_PROJECT_NAME --image=marcolcal/python-hello:v1.0.0  
             #kubectl get deploy,rs,svc,pods   
