@@ -11,14 +11,18 @@ commands:
         default: ${CIRCLE_WORKFLOW_ID:0:7}
     steps:
       - run:
+          name: "Setup custom environment variables"
+          command: echo 'export MY_PROJECT_NAME="UdacityCapstone"' >> "$BASH_ENV"
+      - run:
           name: install kubectl 
           when: on_fail
           command: |
             curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
             sudo mv /tmp/eksctl /usr/local/bin
-            echo "Destroying environment: <<parameters.workflowid>> "
+            echo "Destroying environment: <<parameters.workflowid>> for $MY_PROJECT_NAME "
+            eksctl delete cluster --region=us-east-1 --name=$MY_PROJECT_NAME --profile udacity
       - run:
-          name: destroy cluster
+          name: Message for destrying the cluster
           when: on_fail
           command: |
             echo "Destroying environment: <<parameters.workflowid>> "
@@ -165,17 +169,22 @@ jobs:
             kubectl version --client
             #Or use this for detailed view of version:
             kubectl version --client --output=yaml    
+      - run:
+          name: "Setup custom environment variables"
+          command: echo 'export MY_PROJECT_NAME="UdacityCapstone"' >> "$BASH_ENV"
       - run: 
           name: "Creating cluster"
           command: | 
             aws sts get-caller-identity
-            eksctl create cluster -f ./.circleci/clusters/cluster.yml
+            eksctl create cluster --name=$MY_PROJECT_NAME --region=us-east-1 --profile udacity
+            #eksctl create cluster -f ./.circleci/clusters/cluster.yml
             #/usr/local/bin/aws  eksctl get cluster --name=cluster-in-existing-vpc --region=us-east-1 --profile udacity
             #if [ $? != 0 ]; then
-            #  eksctl create cluster -f ./.circleci/clusters/cluster.yml --region=us-east-1 --profile default;      
+            #  eksctl create cluster --name --region=us-east-1 --profile default;      
             #  else
             #    exit 0;            
             #fi
+      - destroy-cluster
 #########LETS-
 workflows: 
   default:
