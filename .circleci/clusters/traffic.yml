@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: udacity-capstone-app
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              service:
+                name: fudacity-capstone-app-service
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix
+            
+apiVersion: v1
+kind: Service
+metadata:
+  name: udacity-capstone-app-loadbalancer
+spec:
+  type: LoadBalancer
+  selector:
+    app: udacity-capstone-app
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: udacity-capstone-app
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: udacity-capstone-app
+  template:
+    metadata:
+      labels:
+        app: udacity-capstone-app
+        version: "1.10"
+
+    spec:
+      containers:
+        - name: udacity-capstone-app-container
+          image: marcolcal/python-hello:v1.0.0 
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+  strategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
