@@ -273,9 +273,10 @@ jobs:
             kubectl get nodes #--profile udacity
             #kubectl create deploy $MY_PROJECT_NAME --image=marcolcal/python-hello:v1.0.0  
             kubectl get deploy,rs,svc,pods   
-            kubectl apply -f ./clusters/green-pod.yml
-            kubectl apply -f ./clusters/services.yml
-            kubectl apply -f ./clusters/traffic.yml
+            #kubectl port-forward pod/python-helloworld-84857d9565-2598m --address 0.0.0.0 5000:5000
+            kubectl apply -f .circleci/clusters/green-pod.yml
+            kubectl apply -f .circleci/clusters/services.yml
+            kubectl apply -f .circleci/clusters/traffic.yml
 ######
 #########LETS-
 workflows: 
