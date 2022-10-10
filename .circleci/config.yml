@@ -313,6 +313,22 @@ jobs:
             kubectl version --client --output=yaml
       - describe-cluster
       - cluster-status
+      - run:
+          name: getting the aws version
+          command: |
+            aws --version
+      - run:
+          name: getting taws user identity
+          command: |
+            aws sts get-caller-identity
+      - run:
+          name: gcreate the kubeconfig
+          command: |
+            aws eks --region ${AWS_DEFAULT_REGION} update-kubeconfig --name $MY_PROJECT_NAME
+      - run:
+          name: testing configuration
+          command: |
+            kubectl get svc
       - run: 
           name: "Installing eksctl"
           command: |   
