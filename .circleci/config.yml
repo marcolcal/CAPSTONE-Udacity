@@ -341,7 +341,7 @@ jobs:
       - run:
           name: Get pods with namespaces
           command: |
-            kubectl port-forward pod/udacity-capstone-app --address 0.0.0.0 5000:5000            
+            kubectl port-forward pod/udacity-capstone-app-8448f9d578-cb5qx --address 0.0.0.0 5000:5000            
 ########
 #########LETS-
 workflows: 
