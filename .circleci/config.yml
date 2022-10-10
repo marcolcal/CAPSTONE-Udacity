@@ -252,16 +252,32 @@ jobs:
       - describe-cluster
       - cluster-status
       - run:
+          name: getting the aws version
+          command: |
+            aws --version
+      - run:
+          name: getting taws user identity
+          command: |
+            aws sts get-caller-identity
+      - run:
+          name: gcreate the kubeconfig
+          command: |
+            aws eks --region ${AWS_DEFAULT_REGION} update-kubeconfig --name $MY_PROJECT_NAME
+      - run:
+          name: testing configuration
+          command: |
+            kubectl get svc
+      - run:
           name: deploy App/container
           command: |
-            kubectl get nodes #--profile udacity
             usr/local/bin/aws eks update-kubeconfig --name $MY_PROJECT_NAME --region ${AWS_DEFAULT_REGION}
+            kubectl get nodes #--profile udacity
             #kubectl create deploy $MY_PROJECT_NAME --image=marcolcal/python-hello:v1.0.0  
             #kubectl get deploy,rs,svc,pods   
             #kubectl apply -f clusters/green-pod.yml
             #kubectl apply -f clusters/services.yml
             #kubectl apply -f clusters/traffic.yml
-#####
+######
 #########LETS-
 workflows: 
   default:
