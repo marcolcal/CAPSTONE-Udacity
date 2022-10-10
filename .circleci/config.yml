@@ -197,6 +197,11 @@ jobs:
       - restore_cache:
           keys:
             - v1-{{ .Branch }}
+      - run: 
+          name: "Installing eksctl"
+          command: |
+            curl --silent --location https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_Linux_amd64.tar.gz | tar -xz -C /tmp
+            sudo mv /tmp/eksctl /usr/local/bin
       - run:
           name: "Setup custom environment variables"
           command: echo 'export MY_PROJECT_NAME="UdacityCapstone"' >> "$BASH_ENV"
