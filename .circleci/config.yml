@@ -249,6 +249,8 @@ jobs:
             kubectl version --client
             #Or use this for detailed view of version:
             kubectl version --client --output=yaml
+      - describe-cluster
+      - cluster-status
       - run:
           name: deploy App/container
           command: |
