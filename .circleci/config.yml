@@ -246,11 +246,11 @@ jobs:
           command: |
             kubectl get nodes #--profile default
             usr/local/bin/aws eks update-kubeconfig --name $MY_PROJECT_NAME --region ${AWS_DEFAULT_REGION}
-            kubectl create deploy $MY_PROJECT_NAME --image=marcolcal/python-hello:v1.0.0  
-            kubectl get deploy,rs,svc,pods   
-            kubectl apply -f clusters/green-pod.yml
-            kubectl apply -f clusters/services.yml
-            kubectl apply -f clusters/traffic.yml
+            #kubectl create deploy $MY_PROJECT_NAME --image=marcolcal/python-hello:v1.0.0  
+            #kubectl get deploy,rs,svc,pods   
+            #kubectl apply -f clusters/green-pod.yml
+            #kubectl apply -f clusters/services.yml
+            #kubectl apply -f clusters/traffic.yml
 
 #########LETS-
 workflows: 
