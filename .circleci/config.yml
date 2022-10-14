@@ -99,6 +99,7 @@ jobs:
           shell: /bin/bash
           command: |
             echo "We will be back"
+            make lint
             #hadolint Dockerfile || true
             #pylint --disable=R,C,W1203,W1202 app.py    
   build:
@@ -179,8 +180,8 @@ jobs:
           name: "Creating cluster"
           command: | 
             aws sts get-caller-identity
-            eksctl create cluster --name=$MY_PROJECT_NAME --region=us-east-1 #--profile udacity
-            #eksctl create cluster -f ./.circleci/clusters/cluster.yml
+            #eksctl create cluster --name=$MY_PROJECT_NAME --region=us-east-1 #--profile udacity
+            eksctl create cluster -f ./.circleci/clusters/cluster.yml
             #/usr/local/bin/aws  eksctl get cluster --name=cluster-in-existing-vpc --region=${AWS_DEFAULT_REGION} --profile udacity
             #if [ $? != 0 ]; then
             #  eksctl create cluster --name --region=${AWS_DEFAULT_REGION} --profile default;      
@@ -341,21 +342,22 @@ jobs:
       - run:
           name: Get pods with namespaces
           command: |
-            kubectl port-forward pod/udacity-capstone-app-8448f9d578-cb5qx --address 0.0.0.0 5000:5000            
+            echo "Hello World not working yet????"
+            #kubectl port-forward pod/udacity-capstone-app-8448f9d578-cb5qx --address 0.0.0.0 5000:5000            
 ########
 #########LETS-
 workflows: 
   default:
     jobs:
-      #- lint
-      #- build
-      #    requires: [lint]  
-      #- deployekscluster
-      #    requires: [lint]   
-      #- smoke-testing-cluster
-      #    requires: [deployekscluster]   
-      #- deploy-app
-      #    requires: [smoke-testing-cluster]
+      - lint
+      - build
+          requires: [lint]  
+      - deployekscluster
+          requires: [lint]   
+      - smoke-testing-cluster
+          requires: [deployekscluster]   
+      - deploy-app
+          requires: [smoke-testing-cluster]
       - get-pod
       #    requires: [deploy-app]
       #- deploycluster:

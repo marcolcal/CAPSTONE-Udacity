@@ -14,7 +14,7 @@ spec:
               service:
                 name: fudacity-capstone-app-service
                 port:
-                  number: 8080
+                  number: 5000
             path: /
             pathType: Prefix
             
@@ -28,5 +28,5 @@ spec:
     app: udacity-capstone-app
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 8080
+      port: 5000
+      targetPort: 5000

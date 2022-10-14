@@ -18,13 +18,16 @@ nodeGroups:
     volumeSize: 80
     ssh:
       allow: true # will use ~/.ssh/id_rsa.pub as the default ssh key
-
+  - name: ng-2
+    instanceType: m5.xlarge
+    desiredCapacity: 2
+    volumeSize: 100
+    ssh:
+      publicKeyPath: ~/.ssh/ec2_id_rsa.pub
 
 ######
 ```
 eksctl create cluster -f cluster.yaml
-eksctl create cluster --name myCluster --nodes=4
-eksctl create cluster --config-file=<path>
 ```
 ######
 
@@ -87,60 +90,6 @@ You can also check the health of your clusters nodes using the command:
 ```
 kubectl get nodes  [--profile <profile-name>]
 ```
-##
-INstalling eksctl
-curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
-sudo mv /tmp/eksctl /usr/local/bin
-
-###INstall kubectl
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-##To validate binay
-curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
-echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
-##Install it
-sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-chmod +x kubectl
-mkdir -p ~/.local/bin
-mv ./kubectl ~/.local/bin/kubectl
-# and then append (or prepend) ~/.local/bin to $PATH
-kubectl version --client
-Or use this for detailed view of version:
-
-kubectl version --client --output=yaml    
-
-Install using native package management
-Debian-based distributions
-Red Hat-based distributions
-Update the apt package index and install packages needed to use the Kubernetes apt repository:
-
-sudo apt-get update
-sudo apt-get install -y ca-certificates curl
-If you use Debian 9 (stretch) or earlier you would also need to install apt-transport-https:
-
-sudo apt-get install -y apt-transport-https
-Download the Google Cloud public signing key:
-
-sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
-Add the Kubernetes apt repository:
-
-echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-Update apt package index with the new repository and install kubectl:
-
-sudo apt-get update
-sudo apt-get install -y kubectl
-
-
-cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
-enabled=1
-gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-EOF
-sudo yum install -y kubectl
-
-
 
 ##################################
 # Ensure Docker Desktop is running locally
@@ -194,3 +143,44 @@ Install the code formatting tool black: pip install black
 Install the testing library pytest: pip install pytest
 Install the interactive interpreter ipython: pip install ipython
 Test it out by typing ipython and running some code
+
+ksctl Installation
+Latest Linux:
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+sudo mv /tmp/eksctl /usr/local/bin
+
+If you face any error due to ownership permission, you can change the ownership of those directories to your user.
+
+sudo chown -R $(whoami) /usr/local/<directory_name>
+
+
+Create a basic cluster
+Once you have installed EKSCTL utility, you can create a basic cluster with just one command:
+
+eksctl create cluster
+A cluster will be created with default parameters, such as:
+
+An auto-generated name
+Two m5.large worker nodes. Recall that the worker nodes are the virtual machines, and the m5.large type defines that each VM will have 2 vCPUs, 8 GiB memory, and up to 10 Gbps network bandwidth.
+Use the Linux AMIs as the underlying machine image
+Your default region
+A dedicated VPC
+However, you can specify all the above details explicitly, for example:
+
+eksctl create cluster --name myCluster --nodes=4
+
+
+
+Create an advanced cluster
+
+If you want to specify a detailed configuration, then you may have to write all the configuration in a separate YAML file, and pass it along with the command:
+
+eksctl create cluster --config-file=<path>
+We will not discuss the option above to use configuration files, however, you can have a look at an example here.
+
+List the details
+List the details about the existing cluster(s)
+eksctl get cluster [--name=<name>][--region=<region>]
+Delete a cluster
+Run a simple command, it will delete the cluster as well as all the associated resources.
+eksctl delete cluster --name=<name> [--region=<region>]

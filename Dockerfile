@@ -14,7 +14,7 @@ RUN pip install --upgrade pip &&\
 # copy every content from the local file to the image
 COPY . /app
 
-EXPOSE 8080
+EXPOSE 5000
 # configure the container to run in an executed manner
 ENTRYPOINT [ "python" ]
 

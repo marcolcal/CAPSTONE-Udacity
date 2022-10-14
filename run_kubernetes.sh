@@ -10,7 +10,7 @@ dockerpath=marcolcal/${image_name}
 # Step 2
 # Run the Docker Hub container with kubernetes
 docker login
-kubectl create deployment $image_name --image=${dockerpath} --port=80 
+kubectl create deployment $image_name --image=${dockerpath} --port=5000
 
 kubectl set image $image_name 
 
@@ -21,6 +21,6 @@ kubectl get pods
 mypod=$(kubectl get pods  | grep $image_name  | awk '{print $1}')
 # Step 4:
 # Forward the container port to a host
-kubectl port-forward $mypod  8000:80
+kubectl port-forward $mypod  5000:5000
 
 
