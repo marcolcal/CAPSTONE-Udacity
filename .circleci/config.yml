@@ -353,13 +353,13 @@ workflows:
       - build
           requires: [lint]  
       - deployekscluster
-          requires: [lint]   
+          requires: [build]   
       - smoke-testing-cluster
           requires: [deployekscluster]   
       - deploy-app
           requires: [smoke-testing-cluster]
       - get-pod
-      #    requires: [deploy-app]
+          requires: [deploy-app]
       #- deploycluster:
       #    requires: [buildcontainer]
       #- pod-launcher:
