@@ -351,15 +351,20 @@ workflows:
     jobs:
       - lint
       - build
-          #requires: [lint]  
+          requires: 
+            - lint 
       - deployekscluster
-          requires: [build]   
+          requires: 
+            - build 
       - smoke-testing-cluster
-          requires: [deployekscluster]   
+          requires: 
+            - deployekscluster 
       - deploy-app
-          requires: [smoke-testing-cluster]
+          requires: 
+            - smoke-testing-cluster
       - get-pod
-          requires: [deploy-app]
+          requires: 
+            - deploy-app
       #- deploycluster:
       #    requires: [buildcontainer]
       #- pod-launcher:
