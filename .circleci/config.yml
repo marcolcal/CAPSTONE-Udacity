@@ -380,7 +380,7 @@ workflows:
       - deployekscluster:
           requires: 
             - build 
-      - smoke-testing-cluster
+      - smoke-testing-cluster:
           requires: 
             - deployekscluster 
       - deploy-app:
