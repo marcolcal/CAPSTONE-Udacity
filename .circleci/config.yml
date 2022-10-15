@@ -73,9 +73,6 @@ jobs:
       - restore_cache:
           keys:
             - v1-{{ .Branch }}
-      #- setup_remote_docker:
-      #    version: 20.10.14
-      #    docker_layer_caching: true
       - run:
           name: Install dependencies
           command: |
@@ -198,14 +195,7 @@ jobs:
           name: "Creating cluster"
           command: | 
             aws sts get-caller-identity
-            #eksctl create cluster --name=$MY_PROJECT_NAME --region=us-east-1 #--profile udacity
             eksctl create cluster -f ./.circleci/clusters/cluster.yml
-            #/usr/local/bin/aws  eksctl get cluster --name=cluster-in-existing-vpc --region=${AWS_DEFAULT_REGION} --profile udacity
-            #if [ $? != 0 ]; then
-            #  eksctl create cluster --name --region=${AWS_DEFAULT_REGION} --profile default;      
-            #  else
-            #    exit 0;            
-            #fi
           no_output_timeout: 30m
       - destroy-cluster
   smoke-testing-cluster:
@@ -399,24 +389,25 @@ workflows:
           mode: "blue"
           requires: 
             - lint 
-      #- deployekscluster:
-      #    requires: 
-      #      - build 
-      #- smoke-testing-cluster:
-      #    requires: 
-      #      - deployekscluster 
+      - deployekscluster:
+          requires: 
+            - build-green
+            - build-blue
+      - smoke-testing-cluster:
+          requires: 
+            - deployekscluster 
       - deploy-app:
           name: deploy-app-green
           mode: "green"
           requires:
             - build-green
+            - smoke-testing-cluster
       - deploy-app:
           name: deploy-app-blue
           mode: "blue"
           requires:
             - build-blue
-          #requires: 
-          #  - smoke-testing-cluster
+            - smoke-testing-cluster
       - get-pod:
           requires: 
             - deploy-app-green
