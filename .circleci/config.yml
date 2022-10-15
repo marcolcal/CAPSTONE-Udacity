@@ -39,10 +39,13 @@ commands:
           name: "Setup custom environment variables"
           command: echo 'export MY_PROJECT_NAME="Capstone-Project"' >> "$BASH_ENV"
       - run:
+          name: "eksctl --help output"
+          command: eksctl --help
+      - run:
           name: describing the cluster
           command: |
             echo "getting cluster info"
-            eksctl describe-stacks --cluster=$MY_PROJECT_NAME --region=${AWS_DEFAULT_REGION} 
+            aws eksctl describe-stacks --cluster=$MY_PROJECT_NAME --region=${AWS_DEFAULT_REGION} 
 
   cluster-status:
     description: get cluster status
