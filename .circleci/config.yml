@@ -374,19 +374,19 @@ jobs:
 workflows: 
   default:
     jobs:
-      - lint
-      - build:
-          requires: 
-            - lint 
-      - deployekscluster:
-          requires: 
-            - build 
-      - smoke-testing-cluster:
-          requires: 
-            - deployekscluster 
+      #- lint
+      #- build:
+      #    requires: 
+      #      - lint 
+      #- deployekscluster:
+      #    requires: 
+      #      - build 
+      #- smoke-testing-cluster:
+      #    requires: 
+      #      - deployekscluster 
       - deploy-app:
-          requires: 
-            - smoke-testing-cluster
+          #requires: 
+          #  - smoke-testing-cluster
       - get-pod:
           requires: 
             - deploy-app
