@@ -289,7 +289,7 @@ jobs:
             kubectl apply -f .circleci/clusters/green-pod.yml
             kubectl apply -f .circleci/clusters/services.yml
             kubectl apply -f .circleci/clusters/traffic.yml
-            validate = "kubectl get svc| grep udacity-capstone-app-service | awk '{print $1}'"
+            validate="kubectl get svc| grep udacity-capstone-app-service | awk '{print $1}'"
             if [ $validate == udacity-capstone-app-service ]
             then
             echo "$validate is already loaded no change will be made"
