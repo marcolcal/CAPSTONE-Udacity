@@ -23,7 +23,7 @@ commands:
           command: |
             echo "Destroying environment: <<parameters.workflowid>> for $MY_PROJECT_NAME "
             #eksctl delete cluster --region=${AWS_DEFAULT_REGION} --name=capstone-cluster #--profile udacity
-            eksctl delete cluster --region=${AWS_DEFAULT_REGION} --name=UdacityCapstone #--profile udacity
+            eksctl delete cluster --region=${AWS_DEFAULT_REGION} --name=eksctl-UdacityCapstone-cluster #--profile udacity
       - run:
           name: Message for destrying the cluster
           #when: on_fail
