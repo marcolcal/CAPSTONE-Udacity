@@ -136,12 +136,12 @@ jobs:
           command: |
             touch ".env"
             mode=<< parameters.mode >>
-            image_name_tag=$DOCKER_USERNAME/$IMAGE_NAME:$mode
             echo DOCKER_USERNAME="marcolcal" >> ".env"
             #echo DOCKER_PASSWORD=$DOCKER_PASSWORD >> ".env"
             echo PROJECT_NAME="udacity-capstone2022"  >> ".env"
             echo IMAGE_NAME="python-hello" >> ".env"
             source ".env"
+            image_name_tag=$DOCKER_USERNAME/$IMAGE_NAME:$mode
             cp templates/index.html.$mode templates/index.html
             docker build -t $IMAGE_NAME .
             docker image tag $IMAGE_NAME $image_name_tag
