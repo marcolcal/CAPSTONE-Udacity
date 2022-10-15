@@ -20,7 +20,7 @@ commands:
             curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
             sudo mv /tmp/eksctl /usr/local/bin
             echo "Destroying environment: <<parameters.workflowid>> for $MY_PROJECT_NAME "
-            eksctl delete cluster --region=${AWS_DEFAULT_REGION} --name=$MY_PROJECT_NAME #--profile udacity
+            eksctl delete cluster --region=${AWS_DEFAULT_REGION} --name=capstone-cluster #--profile udacity
       - run:
           name: Message for destrying the cluster
           when: on_fail
@@ -353,7 +353,23 @@ jobs:
           name: Get pods with namespaces
           command: |
             echo "Hello World not working yet????"
-            #kubectl port-forward pod/udacity-capstone-app-8448f9d578-cb5qx --address 0.0.0.0 5000:5000            
+            #kubectl port-forward pod/udacity-capstone-app-8448f9d578-cb5qx --address 0.0.0.0 5000:5000      
+
+  destroy-eks:
+    docker:
+      - image: cimg/aws:2022.09
+    working_directory: ~/tmp  
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-{{ .Branch }}
+      - run: 
+          name: "Installing eksctl"
+          command: |
+            curl --silent --location https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_Linux_amd64.tar.gz | tar -xz -C /tmp
+            sudo mv /tmp/eksctl /usr/local/bin
+      - destroy-cluster      
 ########
 #########LETS-
 workflows: 
@@ -366,15 +382,16 @@ workflows:
       #- deployekscluster:
       #    requires: 
       #      - build 
-      - smoke-testing-cluster
-          #requires: 
-          #  - deployekscluster 
-      - deploy-app:
-          requires: 
-            - smoke-testing-cluster
-      - get-pod:
-          requires: 
-            - deploy-app
+      #- smoke-testing-cluster
+      #    #requires: 
+      #    #  - deployekscluster 
+      #- deploy-app:
+      #    requires: 
+      #      - smoke-testing-cluster
+      #- get-pod:
+      #    requires: 
+      #      - deploy-app
+      - destroy-eks
       #- deploycluster:
       #    requires: [buildcontainer]
       #- pod-launcher:
