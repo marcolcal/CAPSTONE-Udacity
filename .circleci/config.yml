@@ -20,13 +20,13 @@ commands:
             sudo mv /tmp/eksctl /usr/local/bin
       - run: 
           name: "Installing eksctl"
+          when: on_fail
           command: |
             echo "Destroying environment: <<parameters.workflowid>> for $MY_PROJECT_NAME "
-            #eksctl delete cluster --region=${AWS_DEFAULT_REGION} --name=capstone-cluster #--profile udacity
-            eksctl delete cluster --region=${AWS_DEFAULT_REGION} --name=eksctl-UdacityCapstone-cluster #--profile udacity
+            eksctl delete cluster --region=${AWS_DEFAULT_REGION} --name=capstone-cluster #--profile udacity
       - run:
           name: Message for destrying the cluster
-          #when: on_fail
+          when: on_fail
           command: |
             echo "Destroying environment: <<parameters.workflowid>> "
             
@@ -356,7 +356,7 @@ jobs:
           name: Get pods with namespaces
           command: |
             echo "Hello World not working yet????"
-            #kubectl port-forward pod/udacity-capstone-app-8448f9d578-cb5qx --address 0.0.0.0 5000:5000      
+ 
 
   destroy-eks:
     docker:
@@ -374,20 +374,20 @@ jobs:
 workflows: 
   default:
     jobs:
-      #- lint
-      #- build:
-      #    requires: 
-      #      - lint 
-      #- deployekscluster:
-      #    requires: 
-      #      - build 
-      #- smoke-testing-cluster:
-      #    requires: 
-      #      - deployekscluster 
-      #- deploy-app:
-      #    requires: 
-      #      - smoke-testing-cluster
-      #- get-pod:
-      #    requires: 
-       #     - deploy-app
-      - destroy-eks
+      - lint
+      - build:
+          requires: 
+            - lint 
+      - deployekscluster:
+          requires: 
+            - build 
+      - smoke-testing-cluster:
+          requires: 
+            - deployekscluster 
+      - deploy-app:
+          requires: 
+            - smoke-testing-cluster
+      - get-pod:
+          requires: 
+            - deploy-app
+      #- destroy-eks
