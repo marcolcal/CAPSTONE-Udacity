@@ -95,7 +95,7 @@ jobs:
           command: |
             hadolint --version
       - run:
-          name: Get the hadolint version
+          name: Whereis and install pylint
           command: |
             whereis pylint
             pip install pylint
@@ -103,6 +103,7 @@ jobs:
           name: Run lint
           shell: /bin/bash
           command: |
+            . .capstone/bin/activate
             echo "We will be back"
             make lint
             #hadolint Dockerfile || true
