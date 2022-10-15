@@ -95,6 +95,10 @@ jobs:
           command: |
             hadolint --version
       - run:
+          name: Get the hadolint version
+          command: |
+            whereis pylint
+      - run:
           name: Run lint
           shell: /bin/bash
           command: |
