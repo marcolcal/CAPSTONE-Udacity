@@ -335,7 +335,7 @@ jobs:
       - run:
           name: create the kubeconfig and update
           command: |
-            aws eks --region ${AWS_DEFAULT_REGION} update-kubeconfig --name $MY_PROJECT_NAME
+            aws eks --region ${AWS_DEFAULT_REGION} update-kubeconfig --name capstone-cluster
       - run:
           name: kubectl get stuff
           command: |
