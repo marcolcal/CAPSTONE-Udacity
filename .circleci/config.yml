@@ -384,7 +384,7 @@ workflows:
       #- smoke-testing-cluster:
       #    requires: 
       #      - deployekscluster 
-      - deploy-app:
+      - deploy-app
           #requires: 
           #  - smoke-testing-cluster
       - get-pod:
