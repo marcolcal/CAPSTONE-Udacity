@@ -390,10 +390,12 @@ workflows:
     jobs:
       - lint
       - build:
+          name: build-green
           mode: "green"
           requires: 
             - lint
       - build:
+          name: build-blue
           mode: "blue"
           requires: 
             - lint 
@@ -403,7 +405,16 @@ workflows:
       #- smoke-testing-cluster:
       #    requires: 
       #      - deployekscluster 
-      - deploy-app
+      - deploy-app:
+          name: deploy-app-green
+          mode: "green"
+          requires:
+            - build-green
+      - deploy-app:
+          name: deploy-app-blue
+          mode: "blue"
+          requires:
+            - build-blue
           #requires: 
           #  - smoke-testing-cluster
       - get-pod:
