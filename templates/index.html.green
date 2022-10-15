@@ -6,7 +6,7 @@
     <title>Flask Docker App for the CapSTONE</title>
 </head>
 <body>
-    <h1>This is the app deployed by my project</h1>
+    <h1>This is the app deployed by my project this is Green</h1>
     <a href="https://github.com/marcolcal/CAPSTONE-Udacity"></a>
 </body>
 </html>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask Docker App for the CapSTONE</title>
+</head>
+<body>
+    <h1>This is the app deployed by my project this BLue</h1>
+    <a href="https://github.com/marcolcal/CAPSTONE-Udacity"></a>
+</body>
+</html>

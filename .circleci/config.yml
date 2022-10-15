@@ -228,6 +228,9 @@ jobs:
       - describe-cluster
       - cluster-status
   deploy-app:
+    parameters:
+      mode:
+        type: string
     docker:
       - image: cimg/aws:2022.09
     working_directory: ~/tmp  
@@ -290,11 +293,11 @@ jobs:
       - run:
           name: deploy App/container
           command: |
+            mode=<< parameters.mode >>
             kubectl get nodes #--profile udacity
             kubectl get deploy,rs,svc,pods   
-            kubectl apply -f .circleci/clusters/green-pod.yml
-            kubectl apply -f .circleci/clusters/services.yml
-            kubectl apply -f .circleci/clusters/traffic.yml
+            kubectl apply -f .circleci/clusters/$mode-pod.yml
+            kubectl apply -f .circleci/clusters/$mode-service.yml
             validate="kubectl get svc| grep udacity-capstone-app-service | awk '{print $1}'"
             if [[ "$validate" == udacity-capstone-app-service ]]
             then
