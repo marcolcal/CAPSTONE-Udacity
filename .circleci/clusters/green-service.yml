@@ -15,11 +15,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: udacity-capstone-app
+  name: udacity-capstone-app-green
 spec:
   type: NodePort
   selector:
-    app:  udacity-capstone-app
+    app:  udacity-capstone-app-green
   ports:
     - protocol: TCP
       port: 5000

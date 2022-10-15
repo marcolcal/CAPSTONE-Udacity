@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: udacity-capstone-app
+  name: udacity-capstone-app-blue
 
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: udacity-capstone-app
+      app: udacity-capstone-app-blue
   template:
     metadata:
       labels:
