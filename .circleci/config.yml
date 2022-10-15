@@ -381,8 +381,8 @@ workflows:
           requires: 
             - build 
       - smoke-testing-cluster
-          #requires: 
-          #  - deployekscluster 
+          requires: 
+            - deployekscluster 
       - deploy-app:
           requires: 
             - smoke-testing-cluster
