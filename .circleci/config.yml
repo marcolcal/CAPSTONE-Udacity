@@ -58,7 +58,7 @@ commands:
           name: describing the cluster
           command: |
             echo "getting cluster info"
-            eksctl get cluster --name=$MY_PROJECT_NAME --region=${AWS_DEFAULT_REGION}
+            eksctl get cluster --name=capstone-cluster --region=${AWS_DEFAULT_REGION}
 
 jobs:
   lint:
