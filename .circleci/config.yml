@@ -419,5 +419,6 @@ workflows:
           #  - smoke-testing-cluster
       - get-pod:
           requires: 
-            - deploy-app
+            - deploy-app-green
+            - deploy-app-blue
       #- destroy-eks
