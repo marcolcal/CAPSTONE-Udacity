@@ -22,7 +22,8 @@ commands:
           name: "Installing eksctl"
           command: |
             echo "Destroying environment: <<parameters.workflowid>> for $MY_PROJECT_NAME "
-            eksctl delete cluster --region=${AWS_DEFAULT_REGION} --name=capstone-cluster #--profile udacity
+            #eksctl delete cluster --region=${AWS_DEFAULT_REGION} --name=capstone-cluster #--profile udacity
+            eksctl delete cluster --region=${AWS_DEFAULT_REGION} --name=UdacityCapstone #--profile udacity
       - run:
           name: Message for destrying the cluster
           #when: on_fail
@@ -373,20 +374,20 @@ jobs:
 workflows: 
   default:
     jobs:
-      - lint
-      - build:
-          requires: 
-            - lint 
-      - deployekscluster:
-          requires: 
-            - build 
-      - smoke-testing-cluster:
-          requires: 
-            - deployekscluster 
-      - deploy-app:
-          requires: 
-            - smoke-testing-cluster
-      - get-pod:
-          requires: 
-            - deploy-app
-      #- destroy-eks
+      #- lint
+      #- build:
+      #    requires: 
+      #      - lint 
+      #- deployekscluster:
+      #    requires: 
+      #      - build 
+      #- smoke-testing-cluster:
+      #    requires: 
+      #      - deployekscluster 
+      #- deploy-app:
+      #    requires: 
+      #      - smoke-testing-cluster
+      #- get-pod:
+      #    requires: 
+       #     - deploy-app
+      - destroy-eks
