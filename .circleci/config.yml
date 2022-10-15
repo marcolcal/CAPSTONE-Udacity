@@ -289,8 +289,13 @@ jobs:
             kubectl apply -f .circleci/clusters/green-pod.yml
             kubectl apply -f .circleci/clusters/services.yml
             kubectl apply -f .circleci/clusters/traffic.yml
-            kubectl get svc | grep service-cluster-ip | awk '{print $1}'
-            kubectl expose deployment udacity-capstone-app --type=ClusterIP --name=service-cluster-ip
+            validate = "kubectl get svc| grep udacity-capstone-app-service | awk '{print $1}'"
+            if [ $validate == udacity-capstone-app-service ]
+            then
+            echo "$validate is already loaded no change will be made"
+            else
+            kubectl expose deployment udacity-capstone-app --type=ClusterIP --name=udacity-capstone-app-service
+            fi
   get-pod:
     docker:
       - image: cimg/aws:2022.09
