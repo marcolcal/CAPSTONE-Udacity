@@ -12,7 +12,7 @@ spec:
         paths:
           - backend:
               service:
-                name: fudacity-capstone-app-service
+                name: udacity-capstone-app-service
                 port:
                   number: 5000
             path: /

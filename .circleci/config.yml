@@ -115,6 +115,9 @@ jobs:
             #hadolint Dockerfile || true
             #pylint --disable=R,C,W1203,W1202 app.py    
   build:
+    parameters:
+      mode:
+        type: string
     docker:
     - image: cimg/go:1.17
       auth:
@@ -135,10 +138,11 @@ jobs:
             echo DOCKER_USERNAME="marcolcal" >> ".env"
             #echo DOCKER_PASSWORD=$DOCKER_PASSWORD >> ".env"
             echo PROJECT_NAME="udacity-capstone2022"  >> ".env"
-            echo IMAGE_NAME="my-blue-image" >> ".env"
+            echo IMAGE_NAME="python-hello" >> ".env"
             source ".env"
+            cp templates/index.html.<< parameters.mode >> templates/index.html
             docker build -t $IMAGE_NAME .
-            docker image tag $IMAGE_NAME $DOCKER_USERNAME/$IMAGE_NAME:latest
+            docker image tag $IMAGE_NAME $DOCKER_USERNAME/$IMAGE_NAME:<< parameters.mode >>
             docker login -u $DOCKER_USERNAME -p ${DOCKER_PASSWORD}
             docker push $DOCKER_USERNAME/$IMAGE_NAME:latest
       - save_cache:
@@ -379,10 +383,15 @@ jobs:
 workflows: 
   default:
     jobs:
-      #- lint
-      #- build:
-      #    requires: 
-      #      - lint 
+      - lint
+      - build:
+          mode: "green"
+          requires: 
+            - lint
+      - build:
+          mode: "blue"
+          requires: 
+            - lint 
       #- deployekscluster:
       #    requires: 
       #      - build 

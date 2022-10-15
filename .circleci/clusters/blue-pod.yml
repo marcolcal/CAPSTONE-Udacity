@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: udacity-capstone-app-container
-          image: marcolcal/python-hello:latest 
+          image: marcolcal/python-hello:blue 
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
