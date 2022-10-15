@@ -137,9 +137,9 @@ jobs:
             echo IMAGE_NAME="my-blue-image" >> ".env"
             source ".env"
             docker build -t $IMAGE_NAME .
-            docker image tag $IMAGE_NAME $DOCKER_USERNAME/$IMAGE_NAME:v1
+            docker image tag $IMAGE_NAME $DOCKER_USERNAME/$IMAGE_NAME:latest
             docker login -u $DOCKER_USERNAME -p ${DOCKER_PASSWORD}
-            docker push $DOCKER_USERNAME/$IMAGE_NAME:v1
+            docker push $DOCKER_USERNAME/$IMAGE_NAME:latest
       - save_cache:
           key: v1-{{ .Branch }}
           paths:
@@ -284,12 +284,12 @@ jobs:
           name: deploy App/container
           command: |
             kubectl get nodes #--profile udacity
-            #kubectl create deploy $MY_PROJECT_NAME --image=marcolcal/python-hello:v1.0.0  
             kubectl get deploy,rs,svc,pods   
-            #kubectl port-forward pod/python-helloworld-84857d9565-2598m --address 0.0.0.0 5000:5000
             kubectl apply -f .circleci/clusters/green-pod.yml
             kubectl apply -f .circleci/clusters/services.yml
             kubectl apply -f .circleci/clusters/traffic.yml
+            kubectl get svc | grep service-cluster-ip | awk '{print $1}'
+            kubectl expose deployment udacity-capstone-app --type=ClusterIP --name=service-cluster-ip
   get-pod:
     docker:
       - image: cimg/aws:2022.09
@@ -373,24 +373,20 @@ jobs:
 workflows: 
   default:
     jobs:
-      #- lint
-      #- build:
-      #    requires: 
-      #      - lint 
-      #- deployekscluster:
-      #    requires: 
-      #      - build 
-      #- smoke-testing-cluster
-      #    #requires: 
-      #    #  - deployekscluster 
-      #- deploy-app:
-      #    requires: 
-      #      - smoke-testing-cluster
-      #- get-pod:
-      #    requires: 
-      #      - deploy-app
-      - destroy-eks
-      #- deploycluster:
-      #    requires: [buildcontainer]
-      #- pod-launcher:
-      #    requires: [deploycluster]
+      - lint
+      - build:
+          requires: 
+            - lint 
+      - deployekscluster:
+          requires: 
+            - build 
+      - smoke-testing-cluster
+          #requires: 
+          #  - deployekscluster 
+      - deploy-app:
+          requires: 
+            - smoke-testing-cluster
+      - get-pod:
+          requires: 
+            - deploy-app
+      #- destroy-eks
