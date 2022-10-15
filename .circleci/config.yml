@@ -45,7 +45,7 @@ commands:
           name: describing the cluster
           command: |
             echo "getting cluster info"
-            eksctl utils describe-stacks --region=${AWS_DEFAULT_REGION} #--cluster=$MY_PROJECT_NAME
+            eksctl utils describe-stacks --region=${AWS_DEFAULT_REGION} --cluster=capstone-cluster
 
   cluster-status:
     description: get cluster status
