@@ -135,16 +135,18 @@ jobs:
           name: "building the docker image"
           command: |
             touch ".env"
+            mode=<< parameters.mode >>
+            image_name_tag=$DOCKER_USERNAME/$IMAGE_NAME:$mode
             echo DOCKER_USERNAME="marcolcal" >> ".env"
             #echo DOCKER_PASSWORD=$DOCKER_PASSWORD >> ".env"
             echo PROJECT_NAME="udacity-capstone2022"  >> ".env"
             echo IMAGE_NAME="python-hello" >> ".env"
             source ".env"
-            cp templates/index.html.<< parameters.mode >> templates/index.html
+            cp templates/index.html.$mode templates/index.html
             docker build -t $IMAGE_NAME .
-            docker image tag $IMAGE_NAME $DOCKER_USERNAME/$IMAGE_NAME:<< parameters.mode >>
+            docker image tag $IMAGE_NAME $image_name_tag
             docker login -u $DOCKER_USERNAME -p ${DOCKER_PASSWORD}
-            docker push $DOCKER_USERNAME/$IMAGE_NAME:latest
+            docker push $image_name_tag
       - save_cache:
           key: v1-{{ .Branch }}
           paths:
