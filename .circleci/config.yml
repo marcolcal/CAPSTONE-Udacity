@@ -288,13 +288,14 @@ jobs:
       - run:
           name: deploy App/container
           command: |
+            kubectl delete service/udacity-capstone-app-service
             kubectl get nodes #--profile udacity
             kubectl get deploy,rs,svc,pods   
             kubectl apply -f .circleci/clusters/green-pod.yml
             kubectl apply -f .circleci/clusters/services.yml
             kubectl apply -f .circleci/clusters/traffic.yml
             validate="kubectl get svc| grep udacity-capstone-app-service | awk '{print $1}'"
-            if [ $validate == udacity-capstone-app-service ]
+            if [[ "$validate" == udacity-capstone-app-service ]]
             then
             echo "$validate is already loaded no change will be made"
             else
